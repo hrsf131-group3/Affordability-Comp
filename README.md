@@ -1,2 +1,0 @@
-# Affordability-Comp
-Mortgage calculator
