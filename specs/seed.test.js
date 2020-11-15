@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+*/
 /* eslint-disable array-callback-return */
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
@@ -19,11 +22,11 @@ describe('drop', () => {
   });
 
   it('should seed DB', async () => {
-    const prices = await db.collection('prices');
+    const prices = db.collection('prices');
 
     const mock = { id: 2, homePrice: 666 };
     await prices.insertOne(mock);
-    const inserted = await prices.findOne({ homePrice: 666});
+    const inserted = await prices.findOne({ homePrice: 666 });
     expect(inserted).toEqual(mock);
   });
 });
