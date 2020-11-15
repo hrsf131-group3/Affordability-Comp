@@ -10,7 +10,7 @@ describe('drop', () => {
   let db;
 
   it('should seed DB', async () => {
-    connection = await mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true })
+    connection = await mongoose.connect('mongodb://127.0.0.1/test', { useNewUrlParser: true })
       .then(console.log('setting address'))
       .catch((e) => { console.log('problem setting address', e); });
     db = await mongoose.connection;
