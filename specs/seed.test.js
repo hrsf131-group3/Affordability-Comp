@@ -12,7 +12,7 @@ describe('drop', () => {
   it('should seed DB', async () => {
     connection = await mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true })
       .then(console.log('setting address'))
-      .catch(e => { console.log('problem setting address'); });
+      .catch((e) => { console.log('problem setting address', e); });
     db = await mongoose.connection;
     const testing = await mongoose.connection.collection('testing');
     await testing.deleteMany({})
