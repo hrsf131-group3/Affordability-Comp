@@ -1,16 +1,25 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-
 jobs:
-  test:
+  build:
+    # pre-built images: https://circleci.com/docs/2.0/circleci-images/
     docker:
-      - image: cimg/node:12.18.3
+      - image: circleci/node:10-browsers
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
-      - node/install-packages # Utilize commands in steps
-      - node/test
-
+      - run:
+          name: The First Step
+          command: |
+            echo 'Hello World!'
+            echo 'This is the delivery pipeline'
+      - run:
+          name: Code Has Arrived
+          command: |
+            ls -al
+            echo '^^^That should look familiar^^^'
+      - run:
+          name: Running in a Unique Container
+          command: |
+            node -v
