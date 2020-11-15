@@ -1,11 +1,9 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-    jobs:
-      build:
-        steps:
-          - checkout
-          - run:
-            name: run tests
-            command: |
-              npm run test --detectOpenHandles
+jobs:
+  build:
+    steps:
+      - checkout
+      - run:
+        name: run tests
+        command: |
+          npm run test --detectOpenHandles
