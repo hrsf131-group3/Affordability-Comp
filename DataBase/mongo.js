@@ -1,23 +1,35 @@
-const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/mortgage', {useNewUrlParser: true});
+const mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/mortgage', { useNewUrlParser: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
+db.once('open', (err) => {
+  if (err) {
+    console.log("we're connected!");
+  }
 });
-
 
 const PriceModel = mongoose.model('Price', new mongoose.Schema({ id: Number, homePrice: Number }));
 
-async function DataGen() {
-  for (var i = 1; i <= 100; i++) {
-    var randomPrice = 1000 * (Math.floor(Math.random() * 2750) + 150)
+const AgentModel = mongoose.model('Agent', new mongoose.Schema({
+  name: String,
+  title: String,
+  phone: String,
+  rating: Number,
+  sales: Number,
+}));
+const ScheduleModel = mongoose.model('Schedule', new mongoose.Schema({
+  in_person: Boolean,
+  date: String,
+  time: String,
+  name: String,
+  phone: String,
+  email: String,
+  financing: Boolean,
+}));
 
-    var price = new PriceModel({ id: i, homePrice: randomPrice })
-    await price.save()
-  }
-}
-DataGen()// uncomment to seed
-
+module.exports.Price = PriceModel;
+module.exports.Agent = AgentModel;
+module.exports.Schedule = ScheduleModel;
+module.exports.db = db;
