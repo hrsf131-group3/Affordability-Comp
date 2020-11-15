@@ -12,7 +12,7 @@ describe('drop', () => {
   let db;
   beforeAll(async () => {
     connection = await mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
-    db = mongoose.connection;
+    db = await mongoose.connection;//  tried removing async
     await db.collection('testing').deleteMany({});
     console.log('opened connection');
   });
