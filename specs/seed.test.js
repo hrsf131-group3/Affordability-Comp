@@ -1,34 +1,22 @@
-/**
- * @jest-environment node
-*/
-/* eslint-disable array-callback-return */
 /* eslint-disable no-undef */
-const mongoose = require('mongoose');
 
-describe('drop', () => {
-  let connection;
-  let db;
+// @jest-environment node
 
-  it('should seed DB', async () => {
-    connection = await mongoose.connect('mongodb://127.0.0.1/test', { useNewUrlParser: true })
-      .then(console.log('setting address'))
-      .catch((e) => { console.log('problem setting address', e); });
-    db = await mongoose.connection;
-    const testing = await mongoose.connection.collection('testing');
-    await testing.deleteMany({})
-      .then(console.log('DB cleared'))
-      .catch(e => { console.log('problem clearing DB'); });
-    const mock = { id: 2, homePrice: 666 };
-    await testing.insertOne(mock)
-      .then(console.log('DB populated'))
-      .catch(e => { console.log('problem populating DB'); });
-    const inserted = await testing.findOne({ homePrice: 666 })
-      .then(console.log('found instance'))
-      .catch(e => { console.log('problem finding instance'); });
-    expect(inserted).toStrictEqual(mock);
+const axios = require('axios');
 
-    await mongoose.connection.close()
-      .then(console.log('closed connection'))
-      .catch(e => { console.log('problem closing DB'); });
+// const seed = require('../seed');
+// const mongo = require('../DataBase/mongo');
+
+describe('API to DB', () => {
+  // beforeAll(() => {
+  //   mongo.connect();
+  // });
+  // afterAll(() => {
+  //   mongo.close();
+  // });
+
+  it('should receive data from DB through API call', () => {
+    axios.get('/dbs')
+      .then((data) => expect(data.length).toEqual(100));
   });
 });
