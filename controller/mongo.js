@@ -1,26 +1,30 @@
 /* eslint-disable array-callback-return */
-const mongo = require('../DataBase/mongo.js');
+const schema = require('../DataBase/schema.js');
+const mongo = require('../DataBase/mongo');
 
 module.exports = {
   get: (req, res) => {
+    mongo.connect();
     const random = Math.floor((Math.random() * 100) + 1);
-    const query = mongo.Price.where({ id: random });
+    const query = schema.Price.where({ id: random });
     query.findOne((err, data) => {
       if (err) {
         res.status(404);
       } else {
         res.status(200).send(data);
+        mongo.db.close();
       }
     });
   },
   getAll: (req, res) => {
-    mongo.Price.find((err, data) => {
+    mongo.connect();
+    schema.Price.find((err, data) => {
       if (err) {
         res.status(404);
       } else {
         res.status(200).send(data);
+        mongo.db.close();
       }
     });
   },
-
 };
