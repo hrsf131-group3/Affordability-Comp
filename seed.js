@@ -1,7 +1,5 @@
 const mongo = require('./DataBase/mongo.js');
 
-// mongo.db.close();/
-
 async function drop() {
   mongo.db.collections.prices.drop()
     .then(console.log('seeding DB'))
@@ -19,7 +17,7 @@ async function DataGen() {
     await price.save();
   }
   console.log('DB has been seeded');
-  // mongo.db.close();
+  await mongo.db.close();
 }
 drop();
 DataGen();
