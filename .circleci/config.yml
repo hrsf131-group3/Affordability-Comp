@@ -36,6 +36,7 @@ jobs:
           name: Running In A Container With Node
           command: |
             node -v
+            node/test
   Now-Complete:
     docker:
       - image: alpine:3.7
