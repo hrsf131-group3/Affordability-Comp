@@ -1,25 +1,29 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
-const mongo = require('../DataBase/mongo.js');
-const seed = require('../seed');
+// const mongo = require('../DataBase/mongo.js');
+// const seed = require('../seed');
 
 describe('drop', () => {
+  let connection;
+  let db;
   beforeAll(async () => {
-    connection = mongoose.connect('mongodb://localhost/mortgage', { useNewUrlParser: true });
+    connection = await mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
     db = await mongoose.connection;
+    await db.collection('prices').deleteMany({});
+    console.log('opened connection');
   });
   afterAll(async () => {
-    await connection.close();
-    await db.close();
+    console.log('closed connection');
+    await mongoose.connection.close();
   });
 
-  it('should drop DB', async () => {
-    seed.drop();
-    await mongo.Price.find((err, data) => { expect(data.length).toBe(0); });
-  });
   it('should seed DB', async () => {
-    await seed.DataGen();
-    await mongo.Price.find((err, data) => { expect(data.length).toBe(100); });
+    const prices = db.collection('prices');
+
+    const mock = { id: 2, homePrice: 666 };
+    await prices.insertOne(mock);
+    const inserted = await prices.findOne({ homePrice: 666});
+    expect(inserted).toEqual(mock);
   });
 });
