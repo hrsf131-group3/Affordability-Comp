@@ -36,7 +36,7 @@ jobs:
           name: Running In A Container With Node
           command: |
             node -v
-            nnpm run test
+            npm run test
   Now-Complete:
     docker:
       - image: alpine:3.7
