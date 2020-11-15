@@ -4,16 +4,14 @@
 
 const axios = require('axios');
 
-// const seed = require('../seed');
+const seed = require('../seed');
 // const mongo = require('../DataBase/mongo');
 
 describe('API to DB', () => {
-  // beforeAll(() => {
-  //   mongo.connect();
-  // });
-  // afterAll(() => {
-  //   mongo.close();
-  // });
+  beforeAll(async () => {
+    await seed.drop();
+    await seed.DataGen();
+  });
 
   it('should receive data from DB through API call', () => {
     axios.get('/dbs')
