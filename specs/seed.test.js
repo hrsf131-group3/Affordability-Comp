@@ -20,7 +20,7 @@ describe('drop', () => {
     const mock = { id: 2, homePrice: 666 };
     await testing.insertOne(mock);
     const inserted = await testing.findOne({ homePrice: 666 });
-    expect(inserted).toEqual(mock);
+    expect(inserted).toStrictEqual(mock);
 
     console.log('closed connection');
     await mongoose.connection.close();
