@@ -9,12 +9,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: The First Step
+          name: Test the DB
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+            npm run test
       - run:
           name: Code Has Arrived
           command: |
-            ls -al
-            echo '^^^That should look familiar^^^'
+            echo '^^^Testinf concluded^^^'
