@@ -8,9 +8,9 @@ jobs:
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    - node/test
     steps:
       - checkout
+      - node/test
       - run:
           name: Test the DB
           command: |
