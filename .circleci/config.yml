@@ -13,8 +13,8 @@ workflows:
         steps:
           - checkout
           - run:
-          - node/test
               name: Test the DB
+                - node/test
               command: |
                 npm run test
           - run:
