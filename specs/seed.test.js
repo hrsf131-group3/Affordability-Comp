@@ -11,18 +11,22 @@ describe('drop', () => {
 
   it('should seed DB', async () => {
     connection = await mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
-    db = await mongoose.connection;//  tried removing async
-    await db.collection('testing').deleteMany({});
-    console.log('opened connection');
-
-    const testing = db.collection('testing');
-
+    db = await mongoose.connection;
+    const testing = await db.collection('testing');
+    await testing.deleteMany({})
+      .then(console.log('DB cleared'))
+      .catch(e => { console.log('problem clearing DB'); });
     const mock = { id: 2, homePrice: 666 };
-    await testing.insertOne(mock);
-    const inserted = await testing.findOne({ homePrice: 666 });
+    await testing.insertOne(mock)
+      .then(console.log('DB populated'))
+      .catch(e => { console.log('problem populating DB'); });
+    const inserted = await testing.findOne({ homePrice: 666 })
+      .then(console.log('found instance'))
+      .catch(e => { console.log('problem finding instance'); });
     expect(inserted).toStrictEqual(mock);
 
-    console.log('closed connection');
-    await mongoose.connection.close();
+    await mongoose.connection.close()
+      .then(console.log('closed connection'))
+      .catch(e => { console.log('problem closing DB'); });
   });
 });
