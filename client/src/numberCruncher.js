@@ -1,14 +1,8 @@
-// import from db eventually
-const homePrice = 1200000;
 const downPaymentPercent = 0.2;
 const interestRate = 0.0292;
-const downPayment = downPaymentPercent * homePrice;
 const monthlyRate = interestRate / 12;
 const loanLife = 30;
 const paymentsInLoanLife = loanLife * 12;
-const firstEQ = ((homePrice - downPayment) * monthlyRate);
-
-const payment = Math.round(firstEQ / (1 - (1 / ((1 + monthlyRate) ** paymentsInLoanLife))));
 
 let mortageInsurance = 0;
 
@@ -17,15 +11,31 @@ if (downPaymentPercent < 0.2) {
 }
 
 const math = {
-  homePrice, // pulled from DB once in place
-  downPayment: downPaymentPercent * homePrice,
+  homePrice: 1000000, // pulled from DB once in place
+  downPayment: 40,
   interestRate,
-  payment,
-  principalInterest: payment,
-  propertyTax: Math.round(payment * 0.16724),
+  payment: null,
+  principalInterest: null,
+  propertyTax: null,
   homeInsurance: 75,
   mortageInsurance,
 };
-// console.log(math)
+
+function calcDownPayment() {
+  math.downPayment = math.homePrice * downPaymentPercent;
+}
+function calcPayment() {
+  const firstEQ = ((math.homePrice - math.downPayment) * monthlyRate);
+  math.payment = (Math.round(firstEQ / (1 - (1 / ((1 + monthlyRate) ** paymentsInLoanLife)))));
+}
+function calcPropertyTax() {
+  math.propertyTax = Math.round(math.payment * 0.16724);
+}
+function initialize() {
+  calcDownPayment();
+  calcPayment();
+  calcPropertyTax();
+}
+initialize();
 
 export default math;
