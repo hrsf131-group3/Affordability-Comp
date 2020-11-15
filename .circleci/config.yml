@@ -4,8 +4,8 @@ orbs:
 workflows:
   node-tests:
     jobs:
-    - node/testß
       build:
+        - node/test
         docker:
           - image: alpine:3.7
             auth:
