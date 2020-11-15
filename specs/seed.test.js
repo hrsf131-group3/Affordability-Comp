@@ -12,8 +12,8 @@ describe('drop', () => {
   let db;
   beforeAll(async () => {
     connection = await mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
-    db = await mongoose.connection;
-    await db.collection('prices').deleteMany({});
+    db = mongoose.connection;
+    await db.collection('testing').deleteMany({});
     console.log('opened connection');
   });
   afterAll(async () => {
@@ -22,11 +22,11 @@ describe('drop', () => {
   });
 
   it('should seed DB', async () => {
-    const prices = db.collection('prices');
+    const testing = db.collection('testing');
 
     const mock = { id: 2, homePrice: 666 };
-    await prices.insertOne(mock);
-    const inserted = await prices.findOne({ homePrice: 666 });
+    await testing.insertOne(mock);
+    const inserted = await testing.findOne({ homePrice: 666 });
     expect(inserted).toEqual(mock);
   });
 });
