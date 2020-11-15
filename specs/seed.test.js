@@ -10,9 +10,15 @@ describe('drop', () => {
   let db;
 
   it('should seed DB', async () => {
-    connection = await mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
-    db = await mongoose.connection;
-    const testing = await db.collection('testing');
+    connection = await mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true })
+      .then(console.log('setting address'))
+      .catch(e => { console.log('problem setting address'); });
+    db = await mongoose.connection
+      .then(console.log('starting handshake'))
+      .catch(e => { console.log('starting handshake'); });
+    const testing = await db.collection('testing')
+      .then(console.log('connecting to collection'))
+      .catch(e => { console.log('problem connecting to collection'); });
     await testing.deleteMany({})
       .then(console.log('DB cleared'))
       .catch(e => { console.log('problem clearing DB'); });
