@@ -5,13 +5,13 @@ workflows:
   node-tests:
     jobs:
       build:
-        - node/test
         docker:
           - image: alpine:3.7
             auth:
               username: mydockerhub-user
               password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         steps:
+          - node/test
           - checkout
           - run:
               name: Test the DB
