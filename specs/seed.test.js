@@ -19,7 +19,7 @@ describe('drop', () => {
   });
 
   it('should seed DB', async () => {
-    const prices = db.collection('prices');
+    const prices = await db.collection('prices');
 
     const mock = { id: 2, homePrice: 666 };
     await prices.insertOne(mock);
