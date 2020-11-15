@@ -4,4 +4,9 @@ orbs:
 workflows:
   node-tests:
     jobs:
-      - node/test --detectOpenHandles
+      steps:
+        - checkout
+        - run:
+          name: run tests
+          command: |
+            npm run test --detectOpenHandles
