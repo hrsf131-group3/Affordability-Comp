@@ -15,9 +15,9 @@ workflows:
           - run:
               name: Test the DB
               command: |
-                - node/test
                 npm run test
           - run:
               name: Code Has Arrived
               command: |
                 echo '^^^Testinf concluded^^^'
+          - node/test
