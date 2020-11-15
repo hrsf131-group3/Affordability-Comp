@@ -3,8 +3,8 @@ orbs:
   node: circleci/node@3.0.0
 workflows:
   node-tests:
-    - node/test
     jobs:
+    - node/testß
       build:
         docker:
           - image: alpine:3.7
