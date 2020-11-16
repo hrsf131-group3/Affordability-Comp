@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// eslint-disable-next-line import/extensions
-import Main from './main.jsx';
+import Main from './main';
 
 ReactDOM.render(<Main />, document.getElementById('app'));
