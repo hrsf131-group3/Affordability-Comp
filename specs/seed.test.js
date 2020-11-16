@@ -1,14 +1,5 @@
-/* eslint-disable no-undef */
+const seed = require('../seed');
 
-// @jest-environment node
+describe('should run seed with command node seed', () => {
 
-const axios = require('axios');
-
-// const mongo = require('../DataBase/mongo');
-
-describe('API to DB', () => {
-  it('should receive data from DB through API call', () => {
-    axios.get('/dbs')
-      .then((data) => expect(data.length).toEqual(100));
-  });
 });

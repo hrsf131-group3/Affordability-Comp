@@ -42,21 +42,21 @@ const style = {
 };
 
 function MortgageCalc() {
-  const [homePrice, setHomePrice] = useState({});
-  const [downPayment, setDownPayment] = useState({});
-  const [interestRate, setInterestRate] = useState({});
+  const [homePrice, setHomePrice] = useState(math.homePrice);
+  // const [downPayment, setDownPayment] = useState(20);
+  // const [interestRate, setInterestRate] = useState(2.88);
 
   useEffect(() => {
     axios
       .get('/db')
       .then((response) => {
         math.homePrice = response.data.homePrice;
+        console.log(math);
         setHomePrice(response.data.homePrice);
-        setDownPayment(math.downPayment);
+        // setDownPayment(20);
+        // setInterestRate(math.interestRate);
       });
   }, []);
-
-  // const mongo = require('../../')
 
   return (
     <div style={{ maxWidth: '692px', margin: '15px' }}>
@@ -69,10 +69,10 @@ function MortgageCalc() {
           </div>
           <div className="padding-2">
             <div>Calculate your monthly mortgage payments</div>
-            <div style={style.moment}>{`Your est. payment: ${homePrice}`}</div>
+            <div style={style.moment}>{`Your est. payment: ${math.payment}`}</div>
           </div>
           <div style={style.darkBox}>
-            <Sliders homePrice={homePrice} downPayment={downPayment} interestRate={interestRate} />
+            <Sliders homePrice={{ homePrice, setHomePrice }} />
           </div>
         </div>
       </div>

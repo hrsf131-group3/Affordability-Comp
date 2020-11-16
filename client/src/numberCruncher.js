@@ -1,6 +1,8 @@
+// const axios = require('axios');
+
 const downPaymentPercent = 0.2;
-const interestRate = 0.0292;
-const monthlyRate = interestRate / 12;
+const interestRate = 2.88;
+const monthlyRate = (interestRate / 100) / 12;
 const loanLife = 30;
 const paymentsInLoanLife = loanLife * 12;
 
@@ -11,14 +13,15 @@ if (downPaymentPercent < 0.2) {
 }
 
 const math = {
-  homePrice: 1000000, // pulled from DB once in place
-  downPayment: 40,
+  homePrice: null, // pulled from DB once in place
+  downPayment: 20,
   interestRate,
   payment: null,
   principalInterest: null,
   propertyTax: null,
   homeInsurance: 75,
   mortageInsurance,
+  // get,
 };
 
 function calcDownPayment() {
@@ -32,10 +35,17 @@ function calcPropertyTax() {
   math.propertyTax = Math.round(math.payment * 0.16724);
 }
 function initialize() {
+  // get();
   calcDownPayment();
   calcPayment();
   calcPropertyTax();
 }
 initialize();
-
+// function get() {
+//   axios
+//     .get('/db')
+//     .then((res) => { math.homePrice = res.data.homePrice; initialize(); })
+//     .catch((e) => { throw e; });
+// }
+// get();
 export default math;
