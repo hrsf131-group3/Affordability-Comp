@@ -10,7 +10,7 @@ export default function Interest(props) {
   }
   return (
     <div className="sliders">
-      <label>Interest Rate</label>
+      <text>Interest Rate</text>
       <input
         id="InterestInput"
         type="text"

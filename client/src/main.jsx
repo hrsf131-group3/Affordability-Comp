@@ -4,17 +4,23 @@ import Price from './sliders/price';
 import Down from './sliders/down';
 
 export default function Main() {
+  // State declarations and Functions
+
   const [homePrice, setHomePrice] = useState(1000000);
   const [downPaymentRate, setDownPaymentRate] = useState(20);
   const [downPayment, setDownPayment] = useState(
-    homePrice * (downPaymentRate / 100)
+    homePrice * (downPaymentRate / 100),
   );
   const [term, setTerm] = useState(360);
   const [interestRate, setInterestRate] = useState(2.88);
-  // const downPaymentRate = 20;
-  // const downPayment = homePrice * (downPaymentRate / 100);
+
+  // Helper Declarations
+
   const monthlyRate = interestRate / 1200;
   const firstEQ = (homePrice - downPayment) * monthlyRate;
+
+  // Data Calculations
+
   const principal = Math.round(firstEQ / (1 - 1 / (1 + monthlyRate) ** term));
   const propertyTax = principal * 0.1682;
   const homeInsurance = 75;
@@ -23,10 +29,13 @@ export default function Main() {
     principal + propertyTax + homeInsurance + mortgageInsurance,
   ).toLocaleString();
 
-  //
+  // Data conditioning
+
   const price = `$${homePrice.toLocaleString()}`;
-  const down = `$${downPayment.toLocaleString()}`;
+  const down = `$${Math.round(downPayment).toLocaleString()}`;
   const rateStr = `%${downPaymentRate.toLocaleString()}`;
+
+  // API request to Mongo for initial HomePrice
 
   useEffect(() => {
     axios
@@ -39,6 +48,8 @@ export default function Main() {
         console.log(err);
       });
   }, []);
+
+  // On Change Calculations
 
   function changePrice(value) {
     let num = parseFloat(value.replace(/\D/g, ''));
@@ -64,6 +75,9 @@ export default function Main() {
     setDownPaymentRate((num / homePrice) * 100);
     setDownPayment(num);
   }
+
+  // DOM Rendering
+
   return (
     <div>
       <h3>Affordability</h3>
