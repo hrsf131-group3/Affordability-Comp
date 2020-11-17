@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import Slider from '../styles/slider';
 
 export default function Interest(props) {
   // const { onChange } = props
@@ -18,11 +19,9 @@ export default function Interest(props) {
         maxLength={5}
         value={props.valueStr}
       />
-      <input
-        id="InterestSlider"
-        type="range"
+      <Slider
         step={0.1}
-        min={0.7}
+        min={0}
         max={6}
         onChange={handleChange}
         value={props.value}

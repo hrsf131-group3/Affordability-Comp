@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
+import React, { useState } from 'react';
+import Slider from '../styles/slider';
 
 export default function Price(props) {
+  const [homePrice, setHomePrice] = useState(props.homePrice);
   function handleChange(e) {
     // eslint-disable-next-line react/prop-types
     props.onChange(e.target.value);
   }
+
+  const max = (homePrice * 1.3);
   return (
     <div className="sliders">
       <div>Home Price</div>
@@ -17,12 +21,10 @@ export default function Price(props) {
         maxLength={10}
         value={props.price}
       />
-      <input
-        id="homePriceSlider"
-        type="range"
+      <Slider
         step={10}
         min={0}
-        max={3000000}
+        max={max}
         onChange={handleChange}
         value={props.homePrice}
       />

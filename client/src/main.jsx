@@ -51,6 +51,7 @@ const style = {
       'linear-gradient(to right, rgb(0, 120, 130) 0%, rgb(0, 120, 130) 51.0393%, rgb(205, 209, 212) 51.0393%, rgb(205, 209, 212) 100%)',
     appearance: 'none',
   },
+
 };
 
 export default function Main() {
@@ -131,7 +132,7 @@ export default function Main() {
   function changeInterest(value) { // has bug when editing input box to NaN
     let num = value.replace('%', '');
     if (num === '0') {
-      num = 0.7;
+      num = 0.1;
     }
     setInterestRate(num);
   }

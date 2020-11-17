@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import Slider from '../styles/slider';
 
 export default function Down(props) {
   // const { onChange } = props
@@ -28,9 +29,7 @@ export default function Down(props) {
         maxLength={10}
         value={props.rateStr}
       />
-      <input
-        id="downPaymentSlider"
-        type="range"
+      <Slider
         step={1}
         min={0}
         max={30}
