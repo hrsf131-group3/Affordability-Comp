@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// eslint-disable-next-line import/extensions
-import MortgageCalc from './mortgageCalc.jsx';
+import Main from './main';
 
-ReactDOM.render(<MortgageCalc />, document.getElementById('app'));
+ReactDOM.render(<Main />, document.getElementById('app'));
