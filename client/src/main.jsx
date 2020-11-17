@@ -15,7 +15,8 @@ export default function Main() {
   const propertyTax = principal * 0.1682;
   const homeInsurance = 75;
   const mortgageInsurance = (downPaymentRate < 20) ? principal * 0.1 : 0;
-  const payments = Math.round(principal + propertyTax + homeInsurance + mortgageInsurance);
+  const payments = Math.round(principal + propertyTax + homeInsurance + mortgageInsurance).toLocaleString();
+  const price = `$${homePrice.toLocaleString()}`;
 
   useEffect(() => {
     axios
@@ -25,7 +26,11 @@ export default function Main() {
   }, []);
 
   function changePrice(e) {
-    setHomePrice(e.target.value);
+    let num = parseFloat(e.target.value.replace(/\D/g, ''));
+    if (Number.isNaN(num)) {
+      num = 0;
+    }
+    setHomePrice(num);
   }
   return (
     <div>
@@ -37,13 +42,15 @@ export default function Main() {
           <label>Home Price</label>
           <input
             id="homePriceInput"
+            type="text"
             onChange={changePrice}
-            value={homePrice} />
+            maxLength={10}
+            value={price} />
           <input
             id="homePriceSlider"
             type="range"
             steps="10"
-            min="0"
+            min={0}
             max={3000000}
             onChange={changePrice}
             value={homePrice} />
