@@ -104,6 +104,7 @@ export default function Main() {
       />
       <div id="svg">
         <div id="paymentsData" value={payments}>
+          <div>SVG</div>
           $
           {payments}
         </div>

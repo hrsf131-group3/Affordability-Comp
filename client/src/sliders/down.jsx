@@ -13,7 +13,7 @@ export default function Down(props) {
   }
   return (
     <div className="sliders">
-      <text>Down Payment</text>
+      <div>Down Payment</div>
       <input
         id="downPaymentValue"
         type="text"

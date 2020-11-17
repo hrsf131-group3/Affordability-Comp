@@ -9,7 +9,7 @@ export default function Price(props) {
   }
   return (
     <div className="sliders">
-      <text>Home Price</text>
+      <div>Home Price</div>
       <input
         id="homePriceInput"
         type="text"
