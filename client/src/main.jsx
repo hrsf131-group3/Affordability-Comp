@@ -1,9 +1,57 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Price from './controllers/price';
 import Down from './controllers/down';
 import Interest from './controllers/interest';
 import Loan from './controllers/loan';
+
+const style = {
+  text: {
+    fontFamily:
+      'TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif',
+    letterSpacing: '-0.1px',
+    fontSize: '16px',
+    lineHeight: '24px',
+    wordSpacing: '0px',
+    fontWeight: '700',
+    color: 'rgb(59, 65, 68)',
+  },
+  title: {
+    fontSize: '20px',
+    lineHeight: '1.2',
+    outline: 'none',
+  },
+  moment: {
+    fontWeight: '1',
+  },
+  darkBox: {
+    backgroundColor: 'rgb(245, 246, 247)',
+    borderRadius: '8px',
+    width: '100%',
+    overflow: 'hidden',
+  },
+  label: {
+    marginTop: '16px',
+    flex: '1 1 0%',
+    width: '100%',
+    display: 'flex',
+    WebkitBoxPack: 'justify',
+    justifyContent: 'space-between',
+    WebkitBoxAlign: 'center',
+    alignItems: 'center',
+    marginBottom: '16px',
+    minHeight: '48px',
+  },
+  slider: {
+    width: '100%',
+    height: '2px',
+    background:
+      'linear-gradient(to right, rgb(0, 120, 130) 0%, rgb(0, 120, 130) 51.0393%, rgb(205, 209, 212) 51.0393%, rgb(205, 209, 212) 100%)',
+    appearance: 'none',
+  },
+};
 
 export default function Main() {
   // State declarations and Functions
@@ -26,7 +74,7 @@ export default function Main() {
   const principal = Math.round(firstEQ / (1 - 1 / (1 + monthlyRate) ** term));
   const propertyTax = principal * 0.1682;
   const homeInsurance = 75;
-  const mortgageInsurance = downPaymentRate < 20 ? principal * 0.1 : 0; // hasn't been called yet
+  const mortgageInsurance = Math.ceil(downPaymentRate < 20 ? principal * 0.1 : 0);
   const payments = Math.round(
     principal + propertyTax + homeInsurance + mortgageInsurance,
   ).toLocaleString();
@@ -41,8 +89,10 @@ export default function Main() {
   // API request to Mongo for initial HomePrice
 
   useEffect(() => {
-    axios
-      .get('/db')
+    axios({
+      method: 'get',
+      url: `${window.location}db`,
+    })
       .then((res) => {
         setHomePrice(res.data.homePrice);
         setDownPayment(res.data.homePrice * (downPaymentRate / 100));
@@ -95,45 +145,59 @@ export default function Main() {
   // DOM Rendering
 
   return (
-    <div>
-      <h3>Affordability</h3>
-      <div>Calculate your monthly mortgage payments</div>
-      <div id="paymentTitle">
+    <div style={style.text}>
+      <div style={style.title}>
+        <h3>Affordability</h3>
+        <div>Calculate your monthly mortgage payments</div>
+      </div>
+      <div id="paymentTitle" style={style.moment}>
         Your est. payment: $
         {payments}
         /month
       </div>
-      <Price
-        id="price"
-        price={price}
-        homePrice={homePrice}
-        onChange={changePrice}
-      />
-      <Down
-        id="down"
-        value={downPayment}
-        valueStr={down}
-        rate={downPaymentRate}
-        rateStr={rateStr}
-        onRateChange={changeRate}
-        onValueChange={changeValue}
-      />
-      <Interest
-        id="interest"
-        value={interestRate}
-        valueStr={interestStr}
-        onChange={changeInterest}
-      />
-      <Loan
-        id="loan"
-        onChange={changeLoan}
-      />
+      <div style={style.darkBox}>
+        <div style={style.label}>
+          <Price
+            id="price"
+            style={style.slider}
+            price={price}
+            homePrice={homePrice}
+            onChange={changePrice}
+          />
+        </div>
+        <div style={style.label}>
+          <Down
+            id="down"
+            style={style.slider}
+            value={downPayment}
+            valueStr={down}
+            rate={downPaymentRate}
+            rateStr={rateStr}
+            onRateChange={changeRate}
+            onValueChange={changeValue}
+          />
+        </div>
+        <div style={style.label}>
+          <Interest
+            id="interest"
+            style={style.slider}
+            value={interestRate}
+            valueStr={interestStr}
+            onChange={changeInterest}
+          />
+        </div>
+        <Loan
+          id="loan"
+          onChange={changeLoan}
+        />
+      </div>
       <div id="svg">
         <div id="paymentsData" value={payments}>
           <div>SVG</div>
           $
           {payments}
         </div>
+        <div>{mortgageInsurance}</div>
       </div>
       <div id="data">data</div>
     </div>

@@ -48,5 +48,5 @@ initialize();
 //     .catch((e) => { throw e; });
 // }
 // get();
-console.log(math)
+
 // export default math;

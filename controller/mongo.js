@@ -5,11 +5,11 @@ const mongo = require('../DataBase/mongo');
 module.exports = {
   get: (req, res) => {
     mongo.connect();
-    const random = Math.floor((Math.random() * 100) + 1);
-    const query = schema.Price.where({ id: random });
+    const query = schema.Price.where({ id: req.params.id });
     query.findOne((err, data) => {
       if (err) {
         res.status(404);
+        mongo.db.close();
       } else {
         res.status(200).send(data);
         mongo.db.close();
