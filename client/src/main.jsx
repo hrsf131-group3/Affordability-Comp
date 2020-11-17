@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Price from './sliders/price';
-import Down from './sliders/down';
-import Interest from './sliders/interest';
+import Price from './controllers/price';
+import Down from './controllers/down';
+import Interest from './controllers/interest';
+import Loan from './controllers/loan';
 
 export default function Main() {
   // State declarations and Functions
@@ -84,6 +85,12 @@ export default function Main() {
     }
     setInterestRate(num);
   }
+  function changeLoan(value) {
+    // [0] = term | [1] = interest | [2] = rate
+    setTerm(Number(value[0]));
+    setInterestRate(Number(value[1]));
+    setDownPaymentRate(Number(value[2]));
+  }
 
   // DOM Rendering
 
@@ -116,6 +123,10 @@ export default function Main() {
         value={interestRate}
         valueStr={interestStr}
         onChange={changeInterest}
+      />
+      <Loan
+        id="loan"
+        onChange={changeLoan}
       />
       <div id="svg">
         <div id="paymentsData" value={payments}>
