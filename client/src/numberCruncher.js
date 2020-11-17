@@ -13,7 +13,7 @@ if (downPaymentPercent < 0.2) {
 }
 
 const math = {
-  homePrice: null, // pulled from DB once in place
+  homePrice: 400000, // pulled from DB once in place
   downPayment: 20,
   interestRate,
   payment: null,
@@ -48,4 +48,5 @@ initialize();
 //     .catch((e) => { throw e; });
 // }
 // get();
-export default math;
+console.log(math)
+// export default math;
