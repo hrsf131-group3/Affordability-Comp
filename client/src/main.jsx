@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Price from './sliders/price';
 import Down from './sliders/down';
+import Interest from './sliders/interest';
 
 export default function Main() {
   // State declarations and Functions
@@ -24,7 +25,7 @@ export default function Main() {
   const principal = Math.round(firstEQ / (1 - 1 / (1 + monthlyRate) ** term));
   const propertyTax = principal * 0.1682;
   const homeInsurance = 75;
-  const mortgageInsurance = downPaymentRate < 20 ? principal * 0.1 : 0;
+  const mortgageInsurance = downPaymentRate < 20 ? principal * 0.1 : 0; // hasn't been called yet
   const payments = Math.round(
     principal + propertyTax + homeInsurance + mortgageInsurance,
   ).toLocaleString();
@@ -34,6 +35,7 @@ export default function Main() {
   const price = `$${homePrice.toLocaleString()}`;
   const down = `$${Math.round(downPayment).toLocaleString()}`;
   const rateStr = `%${downPaymentRate.toLocaleString()}`;
+  const interestStr = `%${interestRate}`;
 
   // API request to Mongo for initial HomePrice
 
@@ -75,6 +77,13 @@ export default function Main() {
     setDownPaymentRate((num / homePrice) * 100);
     setDownPayment(num);
   }
+  function changeInterest(value) { // has bug when editing input box to NaN
+    let num = value.replace('%', '');
+    if (num === '0') {
+      num = 0.7;
+    }
+    setInterestRate(num);
+  }
 
   // DOM Rendering
 
@@ -94,13 +103,19 @@ export default function Main() {
         onChange={changePrice}
       />
       <Down
-        id="Down"
+        id="down"
         value={downPayment}
         valueStr={down}
         rate={downPaymentRate}
         rateStr={rateStr}
         onRateChange={changeRate}
         onValueChange={changeValue}
+      />
+      <Interest
+        id="interest"
+        value={interestRate}
+        valueStr={interestStr}
+        onChange={changeInterest}
       />
       <div id="svg">
         <div id="paymentsData" value={payments}>

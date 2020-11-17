@@ -15,19 +15,18 @@ export default function Interest(props) {
         id="InterestInput"
         type="text"
         onChange={handleChange}
-        maxLength={10}
-        value={props.rateStr}
+        maxLength={5}
+        value={props.valueStr}
       />
       <input
         id="InterestSlider"
         type="range"
-        step={1}
-        min={0}
-        max={30}
+        step={0.1}
+        min={0.7}
+        max={6}
         onChange={handleChange}
-        value={props.rate}
+        value={props.value}
       />
-      <div>{props.valueStr}</div>
     </div>
   );
 }
