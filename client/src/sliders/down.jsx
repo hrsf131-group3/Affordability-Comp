@@ -5,16 +5,26 @@ import React from 'react';
 export default function Down(props) {
   // const { onChange } = props
 
-  function handleChange(e) {
-    props.onChange(e.target.value);
+  function handleRateChange(e) {
+    props.onRateChange(e.target.value);
+  }
+  function handleValueChange(e) {
+    props.onValueChange(e.target.value);
   }
   return (
     <div className="sliders">
       <label>Down Payment</label>
       <input
-        id="downPaymentInput"
+        id="downPaymentValue"
         type="text"
-        onChange={handleChange}
+        onChange={handleValueChange}
+        maxLength={10}
+        value={props.valueStr}
+      />
+      <input
+        id="downPaymentRate"
+        type="text"
+        onChange={handleRateChange}
         maxLength={10}
         value={props.rateStr}
       />
@@ -24,7 +34,7 @@ export default function Down(props) {
         step={1}
         min={0}
         max={30}
-        onChange={handleChange}
+        onChange={handleRateChange}
         value={props.rate}
       />
       <div>{props.valueStr}</div>

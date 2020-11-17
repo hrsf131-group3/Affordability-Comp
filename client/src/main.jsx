@@ -20,7 +20,7 @@ export default function Main() {
   const homeInsurance = 75;
   const mortgageInsurance = downPaymentRate < 20 ? principal * 0.1 : 0;
   const payments = Math.round(
-    principal + propertyTax + homeInsurance + mortgageInsurance
+    principal + propertyTax + homeInsurance + mortgageInsurance,
   ).toLocaleString();
 
   //
@@ -56,31 +56,45 @@ export default function Main() {
     setDownPaymentRate(num);
     setDownPayment(homePrice * (num / 100));
   }
+  function changeValue(value) {
+    let num = parseFloat(value.replace(/\D/g, ''));
+    if (Number.isNaN(num)) {
+      num = 0;
+    }
+    setDownPaymentRate((num / homePrice) * 100);
+    setDownPayment(num);
+  }
   return (
     <div>
       <h3>Affordability</h3>
       <div>Calculate your monthly mortgage payments</div>
-      <div id='paymentTitle'>Your est. payment: ${payments}/month</div>
+      <div id="paymentTitle">
+        Your est. payment: $
+        {payments}
+        /month
+      </div>
       <Price
-        id='price'
+        id="price"
         price={price}
         homePrice={homePrice}
         onChange={changePrice}
       />
       <Down
-        id='Down'
+        id="Down"
         value={downPayment}
         valueStr={down}
         rate={downPaymentRate}
         rateStr={rateStr}
-        onChange={changeRate}
+        onRateChange={changeRate}
+        onValueChange={changeValue}
       />
-      <div id='svg'>
-        <div id='paymentsData' value={payments}>
-          ${payments}
+      <div id="svg">
+        <div id="paymentsData" value={payments}>
+          $
+          {payments}
         </div>
       </div>
-      <div id='data'>data</div>
+      <div id="data">data</div>
     </div>
   );
 }
