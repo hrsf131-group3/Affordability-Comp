@@ -7,6 +7,7 @@ import Down from './controllers/down';
 import Interest from './controllers/interest';
 import Loan from './controllers/loan';
 import Svg from './svg';
+import Label from './styles/label';
 
 const style = {
   text: {
@@ -32,18 +33,7 @@ const style = {
     borderRadius: '8px',
     width: '100%',
     overflow: 'hidden',
-  },
-  label: {
-    marginTop: '16px',
-    flex: '1 1 0%',
-    width: '100%',
-    display: 'flex',
-    WebkitBoxPack: 'justify',
-    justifyContent: 'space-between',
-    WebkitBoxAlign: 'center',
-    alignItems: 'center',
-    marginBottom: '16px',
-    minHeight: '48px',
+    padding: '8px',
   },
 };
 
@@ -144,25 +134,25 @@ export default function Main() {
         <h3>Affordability</h3>
         <div>Calculate your monthly mortgage payments</div>
       </div>
-      <div id="paymentTitle" style={style.moment}>
+      <div id="paymentTitle" style={{ fontWeight: '1' }}>
         Your est. payment: $
         {payments}
         /month
       </div>
       <div style={style.darkBox}>
-        <div style={style.label}>
+        <Label>
           <Price
             id="price"
-            style={style.slider}
+            // style={style.slider}
             price={price}
             homePrice={homePrice}
             onChange={changePrice}
           />
-        </div>
-        <div style={style.label}>
+        </Label>
+        <Label>
           <Down
             id="down"
-            style={style.slider}
+            // style={style.slider}
             value={downPayment}
             valueStr={down}
             rate={downPaymentRate}
@@ -170,8 +160,8 @@ export default function Main() {
             onRateChange={changeRate}
             onValueChange={changeValue}
           />
-        </div>
-        <div style={style.label}>
+        </Label>
+        <Label>
           <Interest
             id="interest"
             style={style.slider}
@@ -179,11 +169,13 @@ export default function Main() {
             valueStr={interestStr}
             onChange={changeInterest}
           />
-        </div>
-        <Loan
-          id="loan"
-          onChange={changeLoan}
-        />
+        </Label>
+        <Label>
+          <Loan
+            id="loan"
+            onChange={changeLoan}
+          />
+        </Label>
       </div>
       <div id="svg">
         <div id="paymentsData" value={payments}>

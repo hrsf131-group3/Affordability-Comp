@@ -2,6 +2,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Slider from '../styles/slider';
+import Input from '../styles/input';
+import Controls from '../styles/controls';
+import InputContainer from '../styles/inputContainer';
 
 export default function Interest(props) {
   // const { onChange } = props
@@ -10,15 +13,17 @@ export default function Interest(props) {
     props.onChange(e.target.value);
   }
   return (
-    <div className="sliders">
-      <div>Interest Rate</div>
-      <input
-        id="InterestInput"
-        type="text"
-        onChange={handleChange}
-        maxLength={5}
-        value={props.valueStr}
-      />
+    <Controls>
+      <InputContainer>
+        <div>Interest Rate</div>
+        <Input
+          id="InterestInput"
+          type="text"
+          onChange={handleChange}
+          maxLength={5}
+          value={props.valueStr}
+        />
+      </InputContainer>
       <Slider
         step={0.1}
         min={0}
@@ -26,6 +31,6 @@ export default function Interest(props) {
         onChange={handleChange}
         value={props.value}
       />
-    </div>
+    </Controls>
   );
 }

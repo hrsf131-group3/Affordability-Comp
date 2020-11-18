@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -23,7 +24,7 @@ const SliderWrapper = styled.input`
     cursor: pointer;
     animate: 0.2s;
     box-shadow: 0px 0px 0px #002200;
-    background: ${props => (`linear-gradient(to right, rgb(0, 120, 130) 0%, rgb(0, 120, 130) ${(props.value / props.max) * 100}%, rgb(205, 209, 212) ${(props.value / props.max) * 100}%, rgb(205, 209, 212) 100%)`)};
+    background: ${(props) => (`linear-gradient(to right, rgb(0, 120, 130) 0%, rgb(0, 120, 130) ${(props.value / props.max) * 100}%, rgb(205, 209, 212) ${(props.value / props.max) * 100}%, rgb(205, 209, 212) 100%)`)};
     border-radius: 0px;
     border: 0px solid #18d501;
   }
@@ -42,6 +43,6 @@ const SliderWrapper = styled.input`
   }
 `;
 
-const Slider = ({ ...props }) => <SliderWrapper {...props } type="range" />;
+const Slider = ({ ...props }) => <SliderWrapper {...props} type="range" />;
 
 export default Slider;

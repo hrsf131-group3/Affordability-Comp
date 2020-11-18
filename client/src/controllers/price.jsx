@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Slider from '../styles/slider';
+import Input from '../styles/input';
+import Controls from '../styles/controls';
+import InputContainer from '../styles/inputContainer';
 
 export default function Price(props) {
   // const [max, setMax] = useState(props.homePrice * 1.3);
@@ -14,15 +17,17 @@ export default function Price(props) {
   }
 
   return (
-    <div className="sliders">
-      <div>Home Price</div>
-      <input
-        id="homePriceInput"
-        type="text"
-        onChange={handleChange}
-        maxLength={10}
-        value={props.price}
-      />
+    <Controls>
+      <InputContainer>
+        <div>Home Price</div>
+        <Input
+          style={{ width: '112px' }}
+          type="text"
+          onChange={handleChange}
+          maxLength={10}
+          value={props.price}
+        />
+      </InputContainer>
       <Slider
         step={10}
         min={0}
@@ -30,6 +35,6 @@ export default function Price(props) {
         onChange={handleChange}
         value={props.homePrice}
       />
-    </div>
+    </Controls>
   );
 }
