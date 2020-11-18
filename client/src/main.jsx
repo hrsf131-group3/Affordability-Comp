@@ -6,6 +6,7 @@ import Price from './controllers/price';
 import Down from './controllers/down';
 import Interest from './controllers/interest';
 import Loan from './controllers/loan';
+import Svg from './svg';
 
 const style = {
   text: {
@@ -44,14 +45,6 @@ const style = {
     marginBottom: '16px',
     minHeight: '48px',
   },
-  slider: {
-    width: '100%',
-    height: '2px',
-    background:
-      'linear-gradient(to right, rgb(0, 120, 130) 0%, rgb(0, 120, 130) 51.0393%, rgb(205, 209, 212) 51.0393%, rgb(205, 209, 212) 100%)',
-    appearance: 'none',
-  },
-
 };
 
 export default function Main() {
@@ -76,16 +69,16 @@ export default function Main() {
   const propertyTax = principal * 0.1682;
   const homeInsurance = 75;
   const mortgageInsurance = Math.ceil(downPaymentRate < 20 ? principal * 0.1 : 0);
-  const payments = Math.round(
+  const total = Math.round(
     principal + propertyTax + homeInsurance + mortgageInsurance,
-  ).toLocaleString();
+  );
 
   // Data conditioning
-
+  const payments = total.toLocaleString();
   const price = `$${homePrice.toLocaleString()}`;
   const down = `$${Math.round(downPayment).toLocaleString()}`;
-  const rateStr = `%${downPaymentRate.toLocaleString()}`;
-  const interestStr = `%${interestRate}`;
+  const rateStr = `${downPaymentRate.toLocaleString()}%`;
+  const interestStr = `${interestRate}%`;
 
   // API request to Mongo for initial HomePrice
 
@@ -194,7 +187,14 @@ export default function Main() {
       </div>
       <div id="svg">
         <div id="paymentsData" value={payments}>
-          <div>SVG</div>
+          <Svg
+            principal={principal}
+            tax={propertyTax}
+            homeInsurance={homeInsurance}
+            mortgageInsurance={mortgageInsurance}
+            total={total}
+            payments={payments}
+          />
           $
           {payments}
         </div>
