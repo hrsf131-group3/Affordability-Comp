@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Text = styled.div`
-  font-family: Roboto, "Segoe UI Bold", Arial, sans-serif;
+  font-family: Roboto;
   letter-spacing: -0.1px;
   font-size: 16px;
   line-height: 24px;

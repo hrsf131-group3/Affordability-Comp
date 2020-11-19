@@ -10,7 +10,11 @@ const Input = styled.input`
     width: 100%;
     display: inline-block;
     outline: none;
-    transition: box-shadow 0.15s ease 0s, border-color 0.15s ease 0s;`;
+    transition: box-shadow 0.15s ease 0s, border-color 0.15s ease 0s;
+    &:focus-within {
+        border: 3px solid rgb(0,120,130);
+    }
+    `;
 Input.displayName = 'input';
 
 export default Input;

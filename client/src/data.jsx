@@ -27,7 +27,7 @@ export default function Data(props) {
         </svg>
         <div style={{ marginTop: '-3px', paddingLeft: '9px', fontWeight: '100' }}>{props.text}</div>
       </DataLine>
-      <div>{props.value}</div>
+      <div style={{ fontWeight: '900' }}>{props.value}</div>
     </DataLine>
   );
 }

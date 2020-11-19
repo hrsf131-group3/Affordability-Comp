@@ -2,12 +2,17 @@ import styled from 'styled-components';
 
 const View = styled.div`
   max-width: 960px;
+  min-width:275px;
   display: flex;
   flex-flow: row wrap;
   margin: 0px auto;
-  /* background-color: rgb(245, 246, 247); */
-  /* border-radius: 8px; */
-  /* overflow: hidden; */
-  padding: 8px;`;
+  padding: 8px;
+
+  /* &:focus {
+    appearance: none;
+    outline:none;
+    outline-offset: none;
+  } */
+  `;
 
 export default View;
