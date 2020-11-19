@@ -9,5 +9,5 @@ const Text = styled.div`
   font-weight: 400;
   color: rgb(59, 65, 68);
   `;
-
+Text.displayName = 'TextRef';
 export default Text;

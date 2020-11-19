@@ -14,5 +14,5 @@ const View = styled.div`
     outline-offset: none;
   } */
   `;
-
+View.displayName = 'ViewRef';
 export default View;

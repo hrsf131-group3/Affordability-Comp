@@ -119,7 +119,7 @@ export default function Main() {
 
   return (
     <Text>
-      <View>
+      <View id="mainView">
         <Title>
           <h3>Affordability</h3>
           <div>Calculate your monthly mortgage payments</div>

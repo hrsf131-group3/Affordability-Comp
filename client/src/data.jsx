@@ -19,15 +19,16 @@ export default function Data(props) {
       <DataLine style={{ justifyContent: 'left' }}>
         <svg style={{ height: '16px', width: '16px' }} viewBox="0, 0, 16, 16">
           <circle
+            id="colorRef"
             cx={8}
             cy={8}
             r={8}
             fill={props.color}
           />
         </svg>
-        <div style={{ marginTop: '-3px', paddingLeft: '9px', fontWeight: '100' }}>{props.text}</div>
+        <div id="descriptRef" style={{ marginTop: '-3px', paddingLeft: '9px', fontWeight: '100' }}>{props.text}</div>
       </DataLine>
-      <div style={{ fontWeight: '900' }}>{props.value}</div>
+      <div id="amountRef" style={{ fontWeight: '900' }}>{props.value}</div>
     </DataLine>
   );
 }
