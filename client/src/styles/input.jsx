@@ -15,6 +15,6 @@ const Input = styled.input`
         border: 3px solid rgb(0,120,130);
     }
     `;
-Input.displayName = 'input';
+Input.displayName = 'inputRef';
 
 export default Input;
