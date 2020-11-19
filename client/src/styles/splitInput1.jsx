@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const SplitInput1 = styled.input`
-     border-width: 1px 0px 1px 1px;
+    font-family: Roboto, "Segoe UI Bold", Arial, sans-serif;
+    border-width: 1px 0px 1px 1px;
     border-top-style: solid;
     border-bottom-style: solid;
     border-left-style: solid;
@@ -12,7 +13,7 @@ const SplitInput1 = styled.input`
     padding: 8px;
     font-size: 16px;
     line-height: 1.5;
-    width: 100%;
+    width: 83px;
     display: inline-block;
     outline: none;
     transition: box-shadow 0.15s ease 0s, border-color 0.15s ease 0s;

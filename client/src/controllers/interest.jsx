@@ -18,6 +18,7 @@ export default function Interest(props) {
         <div>Interest Rate</div>
         <Input
           id="InterestInput"
+          style={{ width: '57px' }}
           type="text"
           onChange={handleChange}
           maxLength={5}

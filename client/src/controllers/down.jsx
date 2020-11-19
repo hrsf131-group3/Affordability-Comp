@@ -20,20 +20,22 @@ export default function Down(props) {
     <Controls>
       <InputContainer>
         <div>Down Payment</div>
-        <SplitInput1
-          id="downPaymentValue"
-          type="text"
-          onChange={handleValueChange}
-          maxLength={10}
-          value={props.valueStr}
-        />
-        <SplitInput2
-          id="downPaymentRate"
-          type="text"
-          onChange={handleRateChange}
-          maxLength={10}
-          value={props.rateStr}
-        />
+        <div style={{ display: 'inline-flex' }}>
+          <SplitInput1
+            id="downPaymentValue"
+            type="text"
+            onChange={handleValueChange}
+            maxLength={10}
+            value={props.valueStr}
+          />
+          <SplitInput2
+            id="downPaymentRate"
+            type="text"
+            onChange={handleRateChange}
+            maxLength={10}
+            value={props.rateStr}
+          />
+        </div>
       </InputContainer>
       <Slider
         step={1}
@@ -42,7 +44,6 @@ export default function Down(props) {
         onChange={handleRateChange}
         value={props.rate}
       />
-      <div>{props.valueStr}</div>
     </Controls>
   );
 }

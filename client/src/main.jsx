@@ -2,40 +2,29 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
+// Controllers
+
 import Price from './controllers/price';
 import Down from './controllers/down';
 import Interest from './controllers/interest';
 import Loan from './controllers/loan';
-import Svg from './svg';
-import Label from './styles/label';
 
-const style = {
-  text: {
-    fontFamily:
-      'TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif',
-    letterSpacing: '-0.1px',
-    fontSize: '16px',
-    lineHeight: '24px',
-    wordSpacing: '0px',
-    fontWeight: '700',
-    color: 'rgb(59, 65, 68)',
-  },
-  title: {
-    fontSize: '20px',
-    lineHeight: '1.2',
-    outline: 'none',
-  },
-  moment: {
-    fontWeight: '1',
-  },
-  darkBox: {
-    backgroundColor: 'rgb(245, 246, 247)',
-    borderRadius: '8px',
-    width: '100%',
-    overflow: 'hidden',
-    padding: '8px',
-  },
-};
+// Raw Components
+
+import Svg from './svg';
+import Data from './data';
+
+// Styles
+
+import Label from './styles/label';
+import DarkBox from './styles/darkBox';
+import Title from './styles/title';
+import Text from './styles/text';
+import SvgStyle from './styles/svgStyle';
+import View from './styles/view';
+import DataContainer from './styles/dataContainer';
+import SvgData from './styles/svgData';
 
 export default function Main() {
   // State declarations and Functions
@@ -64,11 +53,16 @@ export default function Main() {
   );
 
   // Data conditioning
-  const payments = total.toLocaleString();
-  const price = `$${homePrice.toLocaleString()}`;
+
+  const tax = `$${Math.round(propertyTax).toLocaleString()}`; // Helper function
   const down = `$${Math.round(downPayment).toLocaleString()}`;
+  const price = `$${homePrice.toLocaleString()}`;
+  const payments = `$${total.toLocaleString()}`;
   const rateStr = `${downPaymentRate.toLocaleString()}%`;
   const interestStr = `${interestRate}%`;
+  const principalStr = `$${principal.toLocaleString()}`;
+  const homeInsuranceStr = `$${homeInsurance.toLocaleString()}`;
+  const mortgageInsuranceStr = `$${mortgageInsurance.toLocaleString()}`;
 
   // API request to Mongo for initial HomePrice
 
@@ -89,7 +83,7 @@ export default function Main() {
   // On Change Calculations
 
   function changePrice(value) {
-    let num = parseFloat(value.replace(/\D/g, ''));
+    let num = parseFloat(value.replace(/\D/g, '')); // 86-89 Helper
     if (Number.isNaN(num)) {
       num = 0;
     }
@@ -129,20 +123,20 @@ export default function Main() {
   // DOM Rendering
 
   return (
-    <div style={style.text}>
-      <div style={style.title}>
+    <Text>
+      <Title>
         <h3>Affordability</h3>
         <div>Calculate your monthly mortgage payments</div>
-      </div>
+      </Title>
       <div id="paymentTitle" style={{ fontWeight: '1' }}>
-        Your est. payment: $
-        {payments}
+        Your est. payment:
+        {` ${payments}`}
         /month
       </div>
-      <div style={style.darkBox}>
+      <DarkBox>
         <Label>
           <Price
-            id="price"
+            id="priceSection"
             // style={style.slider}
             price={price}
             homePrice={homePrice}
@@ -164,7 +158,6 @@ export default function Main() {
         <Label>
           <Interest
             id="interest"
-            style={style.slider}
             value={interestRate}
             valueStr={interestStr}
             onChange={changeInterest}
@@ -176,23 +169,46 @@ export default function Main() {
             onChange={changeLoan}
           />
         </Label>
-      </div>
-      <div id="svg">
-        <div id="paymentsData" value={payments}>
-          <Svg
-            principal={principal}
-            tax={propertyTax}
-            homeInsurance={homeInsurance}
-            mortgageInsurance={mortgageInsurance}
-            total={total}
-            payments={payments}
+      </DarkBox>
+      <View>
+        <SvgStyle>
+          <div id="paymentsData" value={payments}>
+            <Svg
+              principal={principal}
+              tax={propertyTax}
+              homeInsurance={homeInsurance}
+              mortgageInsurance={mortgageInsurance}
+              total={total}
+              payments={payments}
+            />
+            <SvgData
+              value={payments}
+            />
+          </div>
+        </SvgStyle>
+        <DataContainer>
+          <Data // Cant map over an object with color & text because data needs to be independant
+            color="#052286"
+            text="Principal & Interest"
+            value={principalStr}
           />
-          $
-          {payments}
-        </div>
-        <div>{mortgageInsurance}</div>
-      </div>
-      <div id="data">data</div>
-    </div>
+          <Data
+            color="#00adbb"
+            text="Property Taxes"
+            value={tax}
+          />
+          <Data
+            color="#c2d500"
+            text="Home Insurance"
+            value={homeInsuranceStr}
+          />
+          <Data
+            color="#ceb6ff"
+            text="Mortgage ins. & other"
+            value={mortgageInsuranceStr}
+          />
+        </DataContainer>
+      </View>
+    </Text>
   );
 }

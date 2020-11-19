@@ -6,4 +6,5 @@ module.exports = {
           { node: 'current' },
       },
     ], '@babel/preset-react'],
+  plugins: ['babel-plugin-styled-components'],
 };

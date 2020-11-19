@@ -21,7 +21,8 @@ export default function Price(props) {
       <InputContainer>
         <div>Home Price</div>
         <Input
-          style={{ width: '112px' }}
+          id="priceInput"
+          style={{ width: '94px' }}
           type="text"
           onChange={handleChange}
           maxLength={10}
