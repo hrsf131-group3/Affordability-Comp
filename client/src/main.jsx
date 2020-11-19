@@ -1,9 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
+// Controllers
+
 import Price from './controllers/price';
 import Down from './controllers/down';
 import Interest from './controllers/interest';
 import Loan from './controllers/loan';
+
+// Raw Components
+
+import Svg from './svg';
+import Data from './data';
+
+// Styles
+
+import Label from './styles/label';
+import DarkBox from './styles/darkBox';
+import Title from './styles/title';
+import Text from './styles/text';
+import SvgStyle from './styles/svgStyle';
+import View from './styles/view';
+import DataContainer from './styles/dataContainer';
+import SvgData from './styles/svgData';
 
 export default function Main() {
   // State declarations and Functions
@@ -26,23 +47,30 @@ export default function Main() {
   const principal = Math.round(firstEQ / (1 - 1 / (1 + monthlyRate) ** term));
   const propertyTax = principal * 0.1682;
   const homeInsurance = 75;
-  const mortgageInsurance = downPaymentRate < 20 ? principal * 0.1 : 0; // hasn't been called yet
-  const payments = Math.round(
+  const mortgageInsurance = Math.ceil(downPaymentRate < 20 ? principal * 0.1 : 0);
+  const total = Math.round(
     principal + propertyTax + homeInsurance + mortgageInsurance,
-  ).toLocaleString();
+  );
 
   // Data conditioning
 
-  const price = `$${homePrice.toLocaleString()}`;
+  const tax = `$${Math.round(propertyTax).toLocaleString()}`; // Helper function
   const down = `$${Math.round(downPayment).toLocaleString()}`;
-  const rateStr = `%${downPaymentRate.toLocaleString()}`;
-  const interestStr = `%${interestRate}`;
+  const price = `$${homePrice.toLocaleString()}`;
+  const payments = `$${total.toLocaleString()}`;
+  const rateStr = `${downPaymentRate.toLocaleString()}%`;
+  const interestStr = `${interestRate}%`;
+  const principalStr = `$${principal.toLocaleString()}`;
+  const homeInsuranceStr = `$${homeInsurance.toLocaleString()}`;
+  const mortgageInsuranceStr = `$${mortgageInsurance.toLocaleString()}`;
 
   // API request to Mongo for initial HomePrice
 
   useEffect(() => {
-    axios
-      .get('/db')
+    axios({
+      method: 'get',
+      url: `${window.location}db`,
+    })
       .then((res) => {
         setHomePrice(res.data.homePrice);
         setDownPayment(res.data.homePrice * (downPaymentRate / 100));
@@ -55,7 +83,7 @@ export default function Main() {
   // On Change Calculations
 
   function changePrice(value) {
-    let num = parseFloat(value.replace(/\D/g, ''));
+    let num = parseFloat(value.replace(/\D/g, '')); // 86-89 Helper
     if (Number.isNaN(num)) {
       num = 0;
     }
@@ -81,7 +109,7 @@ export default function Main() {
   function changeInterest(value) { // has bug when editing input box to NaN
     let num = value.replace('%', '');
     if (num === '0') {
-      num = 0.7;
+      num = 0.1;
     }
     setInterestRate(num);
   }
@@ -95,47 +123,92 @@ export default function Main() {
   // DOM Rendering
 
   return (
-    <div>
-      <h3>Affordability</h3>
-      <div>Calculate your monthly mortgage payments</div>
-      <div id="paymentTitle">
-        Your est. payment: $
-        {payments}
+    <Text>
+      <Title>
+        <h3>Affordability</h3>
+        <div>Calculate your monthly mortgage payments</div>
+      </Title>
+      <div id="paymentTitle" style={{ fontWeight: '1' }}>
+        Your est. payment:
+        {` ${payments}`}
         /month
       </div>
-      <Price
-        id="price"
-        price={price}
-        homePrice={homePrice}
-        onChange={changePrice}
-      />
-      <Down
-        id="down"
-        value={downPayment}
-        valueStr={down}
-        rate={downPaymentRate}
-        rateStr={rateStr}
-        onRateChange={changeRate}
-        onValueChange={changeValue}
-      />
-      <Interest
-        id="interest"
-        value={interestRate}
-        valueStr={interestStr}
-        onChange={changeInterest}
-      />
-      <Loan
-        id="loan"
-        onChange={changeLoan}
-      />
-      <div id="svg">
-        <div id="paymentsData" value={payments}>
-          <div>SVG</div>
-          $
-          {payments}
-        </div>
-      </div>
-      <div id="data">data</div>
-    </div>
+      <DarkBox>
+        <Label>
+          <Price
+            id="priceSection"
+            // style={style.slider}
+            price={price}
+            homePrice={homePrice}
+            onChange={changePrice}
+          />
+        </Label>
+        <Label>
+          <Down
+            id="down"
+            // style={style.slider}
+            value={downPayment}
+            valueStr={down}
+            rate={downPaymentRate}
+            rateStr={rateStr}
+            onRateChange={changeRate}
+            onValueChange={changeValue}
+          />
+        </Label>
+        <Label>
+          <Interest
+            id="interest"
+            value={interestRate}
+            valueStr={interestStr}
+            onChange={changeInterest}
+          />
+        </Label>
+        <Label>
+          <Loan
+            id="loan"
+            onChange={changeLoan}
+          />
+        </Label>
+      </DarkBox>
+      <View>
+        <SvgStyle>
+          <div id="paymentsData" value={payments}>
+            <Svg
+              principal={principal}
+              tax={propertyTax}
+              homeInsurance={homeInsurance}
+              mortgageInsurance={mortgageInsurance}
+              total={total}
+              payments={payments}
+            />
+            <SvgData
+              value={payments}
+            />
+          </div>
+        </SvgStyle>
+        <DataContainer>
+          <Data // Cant map over an object with color & text because data needs to be independant
+            color="#052286"
+            text="Principal & Interest"
+            value={principalStr}
+          />
+          <Data
+            color="#00adbb"
+            text="Property Taxes"
+            value={tax}
+          />
+          <Data
+            color="#c2d500"
+            text="Home Insurance"
+            value={homeInsuranceStr}
+          />
+          <Data
+            color="#ceb6ff"
+            text="Mortgage ins. & other"
+            value={mortgageInsuranceStr}
+          />
+        </DataContainer>
+      </View>
+    </Text>
   );
 }
