@@ -21,7 +21,7 @@ export default function Interest(props) {
           style={{ width: '57px' }}
           type="text"
           onChange={handleChange}
-          maxLength={5}
+          maxLength={4}
           value={props.valueStr}
         />
       </InputContainer>
