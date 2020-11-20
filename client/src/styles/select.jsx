@@ -11,6 +11,7 @@ const Select = styled.select`
     appearance: none;
     font-size: 16px;
     line-height: 1.5;
+    outline:none;
     `;
 
 export default Select;

@@ -7,10 +7,13 @@ import Controls from '../styles/controls';
 import InputContainer from '../styles/inputContainer';
 
 export default function Price(props) {
-  // const [max, setMax] = useState(props.homePrice * 1.3);
-  // useEffect(() => {
-  //   setMax(props.homePrice * 1.3);
-  // }, [props.homePrice * 1.3]);
+  // Conditional statement significantly reduces preformance
+
+  let max = props.homePrice * 1.2;
+  if (props.homePrice < 1300000) {
+    max = 1500000;
+  }
+
   function handleChange(e) {
     // eslint-disable-next-line react/prop-types
     props.onChange(e.target.value);
@@ -32,7 +35,7 @@ export default function Price(props) {
       <Slider
         step={10}
         min={0}
-        max={3000000}
+        max={max || 1300000} // Trulia has sudo limit set to 1.3mil
         onChange={handleChange}
         value={props.homePrice}
       />

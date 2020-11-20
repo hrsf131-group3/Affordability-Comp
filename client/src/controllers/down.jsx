@@ -32,7 +32,7 @@ export default function Down(props) {
             id="downPaymentRate"
             type="text"
             onChange={handleRateChange}
-            maxLength={10}
+            maxLength={3}
             value={props.rateStr}
           />
         </div>

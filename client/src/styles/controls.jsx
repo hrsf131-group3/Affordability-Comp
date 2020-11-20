@@ -5,7 +5,7 @@ const Controls = styled.div`
     box-sizing: border-box;
     flex: 1 1 0%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     padding-bottom: 2px;`;
 

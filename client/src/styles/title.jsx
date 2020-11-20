@@ -5,5 +5,5 @@ const Title = styled.div`
   line-height: 1.2
   outline: none;
   `;
-
+Title.displayName = 'TitleRef';
 export default Title;

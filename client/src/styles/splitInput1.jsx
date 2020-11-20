@@ -19,6 +19,10 @@ const SplitInput1 = styled.input`
     transition: box-shadow 0.15s ease 0s, border-color 0.15s ease 0s;
     border-radius: 8px 0px 0px 8px;
     border-right-style: initial;
-    border-right-color: initial;`;
+    border-right-color: initial;
+    &:focus-within {
+        border: 3px solid rgb(0,120,130);
+    }
+    `;
 
 export default SplitInput1;

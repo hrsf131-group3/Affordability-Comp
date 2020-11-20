@@ -6,7 +6,7 @@ const SliderWrapper = styled.input`
   -webkit-appearance: none;
   width: 100%;
   background: transparent;
-  -webkit-rtl-ordering: logical;
+  outline:none;
 
   &::-webkit-slider-thumb {
     box-shadow: 1px 1px 0px #cdd1d4;
@@ -38,7 +38,7 @@ const SliderWrapper = styled.input`
     border-radius: 0px;
     border: 0px solid #18d501;
   }
-  &:focus {
+  &:hover {
     outline: none;
   }
 `;

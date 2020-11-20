@@ -25,6 +25,7 @@ import SvgStyle from './styles/svgStyle';
 import View from './styles/view';
 import DataContainer from './styles/dataContainer';
 import SvgData from './styles/svgData';
+import Connect from './styles/connections';
 
 export default function Main() {
   // State declarations and Functions
@@ -52,18 +53,6 @@ export default function Main() {
     principal + propertyTax + homeInsurance + mortgageInsurance,
   );
 
-  // Data conditioning
-
-  const tax = `$${Math.round(propertyTax).toLocaleString()}`; // Helper function
-  const down = `$${Math.round(downPayment).toLocaleString()}`;
-  const price = `$${homePrice.toLocaleString()}`;
-  const payments = `$${total.toLocaleString()}`;
-  const rateStr = `${downPaymentRate.toLocaleString()}%`;
-  const interestStr = `${interestRate}%`;
-  const principalStr = `$${principal.toLocaleString()}`;
-  const homeInsuranceStr = `$${homeInsurance.toLocaleString()}`;
-  const mortgageInsuranceStr = `$${mortgageInsurance.toLocaleString()}`;
-
   // API request to Mongo for initial HomePrice
 
   useEffect(() => {
@@ -80,31 +69,37 @@ export default function Main() {
       });
   }, []);
 
-  // On Change Calculations
+  // Helper functions
 
-  function changePrice(value) {
+  function toNum(value) {
     let num = parseFloat(value.replace(/\D/g, '')); // 86-89 Helper
     if (Number.isNaN(num)) {
       num = 0;
     }
-    setHomePrice(num);
-    setDownPayment(num * (downPaymentRate / 100));
+    return num;
+  }
+
+  function toCash(value) {
+    return `$${Math.round(value).toLocaleString()}`;
+  }
+
+  function toPerc(value) {
+    return `${value}%`;
+  }
+
+  // On Change Calculations
+
+  function changePrice(value) {
+    setHomePrice(toNum(value));
+    setDownPayment(toNum(value) * (downPaymentRate / 100));
   }
   function changeRate(value) {
-    let num = parseFloat(value.replace(/\D/g, ''));
-    if (Number.isNaN(num)) {
-      num = 0;
-    }
-    setDownPaymentRate(num);
-    setDownPayment(homePrice * (num / 100));
+    setDownPaymentRate(toNum(value));
+    setDownPayment(homePrice * (toNum(value) / 100));
   }
   function changeValue(value) {
-    let num = parseFloat(value.replace(/\D/g, ''));
-    if (Number.isNaN(num)) {
-      num = 0;
-    }
-    setDownPaymentRate((num / homePrice) * 100);
-    setDownPayment(num);
+    setDownPaymentRate((toNum(value) / homePrice) * 100);
+    setDownPayment(toNum(value));
   }
   function changeInterest(value) { // has bug when editing input box to NaN
     let num = value.replace('%', '');
@@ -124,90 +119,95 @@ export default function Main() {
 
   return (
     <Text>
-      <Title>
-        <h3>Affordability</h3>
-        <div>Calculate your monthly mortgage payments</div>
-      </Title>
-      <div id="paymentTitle" style={{ fontWeight: '1' }}>
-        Your est. payment:
-        {` ${payments}`}
-        /month
-      </div>
-      <DarkBox>
-        <Label>
-          <Price
-            id="priceSection"
-            // style={style.slider}
-            price={price}
-            homePrice={homePrice}
-            onChange={changePrice}
-          />
-        </Label>
-        <Label>
-          <Down
-            id="down"
-            // style={style.slider}
-            value={downPayment}
-            valueStr={down}
-            rate={downPaymentRate}
-            rateStr={rateStr}
-            onRateChange={changeRate}
-            onValueChange={changeValue}
-          />
-        </Label>
-        <Label>
-          <Interest
-            id="interest"
-            value={interestRate}
-            valueStr={interestStr}
-            onChange={changeInterest}
-          />
-        </Label>
-        <Label>
-          <Loan
-            id="loan"
-            onChange={changeLoan}
-          />
-        </Label>
-      </DarkBox>
-      <View>
+      <View id="mainView">
+        <Title>
+          <h3 style={{ fontWeight: 'bold' }}>Affordability</h3>
+          <div>Calculate your monthly mortgage payments</div>
+          <div id="paymentTitle" style={{ fontWeight: '1', fontSize: '16px' }}>
+            Your est. payment:
+            {` ${toCash(total)}`}
+            /month
+          </div>
+        </Title>
+        <DarkBox>
+          <Label>
+            <Price
+              id="priceSection"
+              // style={style.slider}
+              price={toCash(homePrice)}
+              homePrice={homePrice}
+              onChange={changePrice}
+            />
+          </Label>
+          <Label>
+            <Down
+              id="down"
+              // style={style.slider}
+              value={downPayment}
+              valueStr={toCash(downPayment)}
+              rate={downPaymentRate}
+              rateStr={toPerc(downPaymentRate)}
+              onRateChange={changeRate}
+              onValueChange={changeValue}
+            />
+          </Label>
+          <Label>
+            <Interest
+              id="interest"
+              value={interestRate}
+              valueStr={toPerc(interestRate)}
+              onChange={changeInterest}
+            />
+          </Label>
+          <Label>
+            <Loan
+              id="loan"
+              onChange={changeLoan}
+            />
+          </Label>
+        </DarkBox>
+      </View>
+      <View style={{ paddingTop: '0px' }}>
         <SvgStyle>
-          <div id="paymentsData" value={payments}>
+          <div id="paymentsData" value={toCash(total)}>
             <Svg
               principal={principal}
               tax={propertyTax}
               homeInsurance={homeInsurance}
               mortgageInsurance={mortgageInsurance}
               total={total}
-              payments={payments}
+              payments={toCash(total)}
             />
             <SvgData
-              value={payments}
+              value={toCash(total)}
             />
           </div>
         </SvgStyle>
-        <DataContainer>
-          <Data // Cant map over an object with color & text because data needs to be independant
-            color="#052286"
-            text="Principal & Interest"
-            value={principalStr}
-          />
-          <Data
-            color="#00adbb"
-            text="Property Taxes"
-            value={tax}
-          />
-          <Data
-            color="#c2d500"
-            text="Home Insurance"
-            value={homeInsuranceStr}
-          />
-          <Data
-            color="#ceb6ff"
-            text="Mortgage ins. & other"
-            value={mortgageInsuranceStr}
-          />
-        </DataContainer>
+        <div style={{ flex: 'auto', alignSelf: 'flex-end' }}>
+          <DataContainer>
+            <Data // Cant map over an object with color & text because data needs to be independant
+              color="#052286"
+              text="Principal & Interest"
+              value={toCash(principal)}
+            />
+            <Data
+              color="#00adbb"
+              text="Property Taxes"
+              value={toCash(propertyTax)}
+            />
+            <Data
+              color="#c2d500"
+              text="Home Insurance"
+              value={toCash(homeInsurance)}
+            />
+            <Data
+              color="#ceb6ff"
+              text="Mortgage ins. & other"
+              value={toCash(mortgageInsurance)}
+            />
+            <Connect />
+          </DataContainer>
+        </div>
       </View>
     </Text>
   );
