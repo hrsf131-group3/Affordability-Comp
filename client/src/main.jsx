@@ -121,7 +121,7 @@ export default function Main() {
     <Text>
       <View id="mainView">
         <Title>
-          <h3>Affordability</h3>
+          <h3 style={{ fontWeight: 'bold' }}>Affordability</h3>
           <div>Calculate your monthly mortgage payments</div>
           <div id="paymentTitle" style={{ fontWeight: '1', fontSize: '16px' }}>
             Your est. payment:
