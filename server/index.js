@@ -7,11 +7,11 @@ const app = express();
 const PORT = 8020;
 
 app.use(express.json());
-app.use('/listings/:id', express.static('client/dist'));
+app.use('/mortgage/:id', express.static('client/dist'));
 
 app.listen(PORT, () => {
   console.log(`Listening on 127.0.0.1:${PORT}`);
 });
 
-app.get('/listings/:id/db', mongoCont.get);
+app.get('*/:id/db', mongoCont.get);
 // app.get('dbs', mongoCont.getAll);

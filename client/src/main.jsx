@@ -52,13 +52,13 @@ export default function Main() {
   const total = Math.round(
     principal + propertyTax + homeInsurance + mortgageInsurance,
   );
-
+  // const url = window.location.pathname.split('/');
   // API request to Mongo for initial HomePrice
 
   useEffect(() => {
     axios({
       method: 'get',
-      url: `${window.location}db`,
+      url: `${window.location.pathname}db`,
     })
       .then((res) => {
         setHomePrice(res.data.homePrice);

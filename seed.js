@@ -20,8 +20,5 @@ async function DataGen() {
   console.log('DB has been seeded');
   await mongo.db.close();
 }
-// drop();
-// DataGen();
-
-module.exports.drop = drop;
-module.exports.DataGen = DataGen;
+drop();
+DataGen();
