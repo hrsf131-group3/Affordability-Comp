@@ -5,7 +5,6 @@ const mongo = require('../DataBase/mongo');
 module.exports = {
   get: (req, res) => {
     mongo.connect();
-    console.log(req.params);
     const query = schema.Price.where({ id: req.params.id });
     query.findOne((err, data) => {
       if (err) {
