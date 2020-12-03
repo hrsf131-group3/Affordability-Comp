@@ -26,6 +26,7 @@
       },
       Neighborhood: {
            Zip: Number 
+           InterestRate: Number
       }
  
     }
