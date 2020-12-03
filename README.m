@@ -12,8 +12,22 @@
 
 ```json
     {
-      "id": "Number",
-      "Price": "Number"
+      id: Number,
+      Price: Number,
+      taxAndAssesment: {
+           Year: Date,
+           Tax: Number,
+           Assesment: Number
+      }
+      priceHistory: {
+           Date: Date,
+           Price: Number,
+           Event: String
+      }
+      Neighborhood: {
+           Zip: Number 
+      }
+ 
     }
 ```
 
@@ -25,9 +39,23 @@
 **Request Body**: Expects JSON with the following keys.
 
 ```json
-    {
-      "id": "Number",
-      "Price": "Number"
+        {
+      id: Number,
+      Price: Number,
+      taxAndAssesment: {
+           Year: Date,
+           Tax: Number,
+           Assesment: Number
+      }
+      priceHistory: {
+           Date: Date,
+           Price: Number,
+           Event: String
+      }
+      Neighborhood: {
+           Zip: Number
+      }
+ 
     }
 ```
 
@@ -43,9 +71,19 @@
 **Request Body**: Expects JSON with any of the following keys (include only keys to be updated)
 
 ```json
-    { 
-      "id": "Number",
-      "Price": "Number"
+        {
+      id: Number,
+      Price: Number,
+      taxAndAssesment: {
+           Year: Date,
+           Tax: Number,
+           Assesment: Number
+      }
+      priceHistory: {
+           Date: Date,
+           Price: Number,
+           Event: String
+      } 
     }
 ```
 
