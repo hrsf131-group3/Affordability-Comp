@@ -18,12 +18,12 @@
            Year: Date,
            Tax: Number,
            Assesment: Number
-      }
+      },
       priceHistory: {
            Date: Date,
            Price: Number,
            Event: String
-      }
+      },
       Neighborhood: {
            Zip: Number 
       }
@@ -46,12 +46,12 @@
            Year: Date,
            Tax: Number,
            Assesment: Number
-      }
+      },
       priceHistory: {
            Date: Date,
            Price: Number,
            Event: String
-      }
+      },
       Neighborhood: {
            Zip: Number
       }
