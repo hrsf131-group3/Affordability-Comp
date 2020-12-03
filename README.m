@@ -13,7 +13,7 @@
 ```json
     {
       "id": "Number",
-      "homePrice": "Number"
+      "Price": "Number"
     }
 ```
 
@@ -27,12 +27,12 @@
 ```json
     {
       "id": "Number",
-      homePrice: "Number"
+      "Price": "Number"
     }
 ```
 
 
-### Update restaurant info
+### Update mortgage info
   * PATCH `/api/mortgage/:id`
 
 **Path Parameters:**
@@ -43,8 +43,9 @@
 **Request Body**: Expects JSON with any of the following keys (include only keys to be updated)
 
 ```json
-    {
-      "homePrice": "Number"
+    { 
+      "id": "Number",
+      "Price": "Number"
     }
 ```
 
