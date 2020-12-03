@@ -25,7 +25,7 @@
            Event: String
       },
       Neighborhood: {
-           Zip: Number 
+           Zip: Number, 
            InterestRate: Number
       }
  
@@ -54,7 +54,8 @@
            Event: String
       },
       Neighborhood: {
-           Zip: Number
+           Zip: Number,
+           InterestRate: Number
       }
  
     }
@@ -120,7 +121,8 @@
       id: Number,
       Price: Number,
       Neighborhood: {
-           Zip: Number
+           Zip: Number,
+           InterestRate: Number
       }
     }
 
