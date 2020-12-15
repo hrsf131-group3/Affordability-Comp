@@ -1,17 +1,20 @@
+require('newrelic');
 /* eslint-disable no-console */
 const express = require('express');
-const mongoCont = require('../controller/mongo.js');
+const {getListing} = require('../controller/mongo.js');
 // const path = require('path')
+const connectDB = require('../DataBase/mongo.js');
+connectDB();
 
 const app = express();
-const PORT = 8020;
+const PORT = 9022;
 
 app.use(express.json());
-app.use('/mortgage/:id', express.static('client/dist'));
+app.use('/', express.static('client/dist'));
 
 app.listen(PORT, () => {
   console.log(`Listening on 127.0.0.1:${PORT}`);
 });
 
-app.get('*/:id/db', mongoCont.get);
+app.get('*/:id/mortgage', getListing);
 // app.get('dbs', mongoCont.getAll);
