@@ -1,24 +1,44 @@
 const mongoose = require('mongoose');
 
-const PriceModel = mongoose.model('Price', new mongoose.Schema({ id: Number, homePrice: Number }));
+// const ListingSchema = new mongoose.Schema({
+//      "listing_id": Number,
+//      "price": Number,
+//      "hoa": Number,
+//      "insurance": Number,
+//      "taxAndAssesment": {
+//           "year": Date,
+//           "tax": Number,
+//           "assesment": Number
+//      },
+//      "priceHistory": [{
+//           "date": Date,
+//           "price": Number,
+//           "event": String
+//      }],
+//      "neighborhood": {
+//           "zip": Number, 
+//           "interestRate": Number
+//      }
+// });
 
-const AgentModel = mongoose.model('Agent', new mongoose.Schema({
-  name: String,
-  title: String,
-  phone: String,
-  rating: Number,
-  sales: Number,
-}));
-const ScheduleModel = mongoose.model('Schedule', new mongoose.Schema({
-  in_person: Boolean,
-  date: String,
-  time: String,
-  name: String,
-  phone: String,
-  email: String,
-  financing: Boolean,
-}));
+module.exports = mongoose.model('Listing', ListingSchema)
 
-module.exports.Price = PriceModel;
-module.exports.Agent = AgentModel;
-module.exports.Schedule = ScheduleModel;
+const ListingSchema = new mongoose.Schema({
+     listing_id:{type:Number, required: true, unique: true},
+     price:{type:Number, required: true},
+     hoa: {type: Number, required: true},
+     insurance: {type: Number, required: true},
+     taxes: {
+          year: {type: Number},
+          tax: {type: Number},
+          assesment: {type: Number}
+     },
+     priceHistory: [
+          {
+               year: {type: Number}, price: {type: Number}, event: {type: String}
+          }
+     ],
+     neighborhood: {
+          zip: {type: Number}, interestRate: {type: Number}
+     }
+});

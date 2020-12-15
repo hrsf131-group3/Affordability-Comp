@@ -14,16 +14,18 @@
     {
       "id": "Number",
       "price": "Number",
-      "taxAndAssesment": {
+      "hoa": "Number",
+      "insurance": "Number",
+      "taxAndAssesment": [{
            "year": "Date",
            "tax": "Number",
            "assesment": "Number"
-      },
-      "priceHistory": {
+      }],
+      "priceHistory": [{
            "date": "Date",
            "price": "Number",
            "event": "String"
-      },
+      }],
       "neighborhood": {
            "zip": "Number", 
            "interestRate": "Number"
@@ -47,11 +49,11 @@
            "tax": "Number",
            "assesment": "Number"
       },
-      "priceHistory": {
+      "priceHistory": [{
            "date": "Date",
            "price": "Number",
            "event": "String"
-      },
+      }],
       "neighborhood": {
            "zip": "Number",
            "interestRate": "Number"
@@ -75,16 +77,16 @@
         {
       "id": "Number",
       "price": "Number",
-      "taxAndAssesment": {
+      "taxAndAssesment": [{
            "year": "Date",
            "tax": "Number",
            "assesment": "Number"
-      },
-      "priceHistory": {
+      }],
+      "priceHistory": [{
            "date": "Date",
            "price": "Number",
            "event": "String"
-      },
+      }],
       "neighborhood": {
            "zip": "Number",
            "interestRate": "Number"

@@ -1,10 +1,19 @@
 const mongoose = require('mongoose');
 
-const url = 'mongodb://localhost/mortgage';
+const url = 'mongodb://localhost/trelia';
 
-const connect = () => mongoose.connect(url, { useNewUrlParser: true });
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(url, { 
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useUnifiedTopology: true
+         });
+        console.log(`connected to mongodb`)
+    } catch (err) {
+        console.log(`error: ${err.message}`)
+    }
+    
+}
 
-const db = mongoose.connection;
-
-module.exports.db = db;
-module.exports.connect = connect;
+module.exports = connectDB;

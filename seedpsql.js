@@ -43,8 +43,12 @@ const generateEvent = () => {
     }
 }
 const generateDate = () => {
-    faker.date.between('2020-12-4', '1990-12-4');
+  faker.date.past().toLocaleString('default', { 'dateStyle': 'short', 'timeStyle': 'short' }).replace(',', '')
 }
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 
 /*
 const dataGenHome = (numGen) => {
@@ -102,17 +106,18 @@ const dataGenNeighborhood = (numGen) => {
 
 // definitions
 function writeTenMillionHomeRecords(writer, encoding, callback) {
-    let i = 100;
+    let i = 10000000;
     let id = 0;
+    let neighborhood_id = 1
     function write() {
       let ok = true;
       do {
         i -= 1;
         id += 1;
+        getRandomInt(2) ? neighborhood_id += getRandomInt(2) : neighborhood_id += 0
         const askingprice = generatePrice();
-        const hoa = generateHOA();
+        const hoa = getRandomInt(2) ? generateHOA() : 0;
         const insurance = 75;
-        const neighborhood_id = id;
         const data = `${id},${askingprice},${hoa},${insurance},${neighborhood_id}\n`;
         if (i === 0) {
           writer.write(data, encoding, callback);
@@ -132,7 +137,7 @@ function writeTenMillionHomeRecords(writer, encoding, callback) {
   }
 
   function writeTenMillionTaxRecords(writer, encoding, callback) {
-    let i = 100;
+    let i = 10000000;
     let id = 0;
     function write() {
       let ok = true;
@@ -161,17 +166,17 @@ function writeTenMillionHomeRecords(writer, encoding, callback) {
   }
 
   function writeTenMillionHistoryRecords(writer, encoding, callback) {
-    let i = 100;
-    let id = 0;
+    let i = 20000000;
+    let home_id = 1
     function write() {
       let ok = true;
       do {
         i -= 1;
-        id += 1;
-        const date = generateDate();
+        getRandomInt(2) || getRandomInt(2) ? home_id += getRandomInt(2) : home_id += 0
+        const date = faker.date.past().toLocaleString('default', { 'dateStyle': 'short'}).replace(',');
         const price = generatePrice();
         const event = generateEvent();
-        const data = `${id},${date},${price},${event}\n`;
+        const data = `${home_id},${date},${price},${event}\n`;
         if (i === 0) {
           writer.write(data, encoding, callback);
         } else {
@@ -190,7 +195,7 @@ function writeTenMillionHomeRecords(writer, encoding, callback) {
   }
 
   function writeTenMillionNeighborhoodRecords(writer, encoding, callback) {
-    let i = 100;
+    let i = 10000000;
     let id = 0;
     function write() {
       let ok = true;
