@@ -99,4 +99,4 @@ function toJSONFile(fileLength) {
   }
   write();
 }
-toJSONFile(100);
+toJSONFile(10000000);
