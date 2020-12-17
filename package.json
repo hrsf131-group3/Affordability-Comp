@@ -6,8 +6,9 @@
     "react-dev": "webpack -d --watch",
     "production": "webpack",
     "test": "jest",
-    "start": "nodemon server/index.js",
-    "seedpsql": "node seedpsql"
+    "start": "node server/index.js",
+    "seedpsql": "node seedpsql",
+    "seedMongo": "node SeedDB/seedMongo.js"
   },
   "author": "Blake",
   "license": "ISC",
