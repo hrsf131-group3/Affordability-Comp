@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Main from '../client/src/main';
+import Main from '../../client/src/main';
 
 describe('test render for <Main />', () => {
   it('assert', () => {

@@ -73,7 +73,7 @@ function createListing(listing_id) {
 // WRITE-TO-FILE FUNCTION
 /// //////////////////////////////////////////////////////////////////////////////////
 function toJSONFile(fileLength) {
-  const writer = fs.createWriteStream(`/home/erenvilla/sdc/affordability-comp/JSON/mongoData.json`);
+  const writer = fs.createWriteStream(`${__dirname}/mongoData.json`);
   let counter = 0;
   const start = Date.now();
   function write() {
