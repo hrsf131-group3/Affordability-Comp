@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const url = "172.17.0.3";
+const url = "mongodb://localhost:27017/trelia";
 
 const connectDB = async () => {
     try {
